@@ -16,6 +16,13 @@ connectDB();
 
 const app = express();
 
+app.get('/api/test', (req, res) => {
+  res.json({ 
+    clientUrl: process.env.CLIENT_URL,
+    allowedOrigins 
+  });
+});
+
 const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
   .split(',')
   .map((origin) => origin.trim())
