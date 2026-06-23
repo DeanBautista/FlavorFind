@@ -16,10 +16,11 @@ connectDB();
 
 const app = express();
 
-app.get('/api/test', (req, res) => {
-  res.json({ 
-    clientUrl: process.env.CLIENT_URL,
-    allowedOrigins 
+app.get('/api/test-env', (req, res) => {
+  res.json({
+    mongoUri: process.env.MONGO_URI ? 'set' : 'missing',
+    clientUrl: process.env.CLIENT_URL ? 'set' : 'missing',
+    jwtAccess: process.env.JWT_ACCESS_SECRET ? 'set' : 'missing',
   });
 });
 
