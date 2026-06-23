@@ -1,7 +1,11 @@
   import axios from "axios";
 
+  const apiBaseURL =
+    import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ||
+    "http://localhost:3000/api";
+
   const apiClient = axios.create({
-    baseURL: "http://localhost:3000/api",
+    baseURL: apiBaseURL,
     headers: { "Content-Type": "application/json" },
     withCredentials: true,   // ← allows cookies (refreshToken) to be sent/received
   });

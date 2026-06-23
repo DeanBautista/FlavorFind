@@ -14,13 +14,20 @@ const generateRefreshToken = (userId) =>
   });
 
 // ── Cookie Helper ─────────────────────────────────────────────
+const refreshTokenCookieOptions = () => ({
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "None" : "Strict",
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+});
+
+const clearRefreshTokenCookieOptions = () => {
+  const { maxAge, ...options } = refreshTokenCookieOptions();
+  return options;
+};
+
 const setRefreshTokenCookie = (res, token) => {
-  res.cookie("refreshToken", token, {
-    httpOnly: true,                              // JS cannot access it
-    secure: process.env.NODE_ENV === "production", // HTTPS only in prod
-    sameSite: "Strict",
-    maxAge: 7 * 24 * 60 * 60 * 1000,           // 7 days in ms
-  });
+  res.cookie("refreshToken", token, refreshTokenCookieOptions());
 };
 
 // ── Register ──────────────────────────────────────────────────
@@ -117,22 +124,14 @@ exports.refreshToken = async (req, res) => {
     res.status(200).json({ accessToken });
   } catch (err) {
     // Clear the bad cookie so the user isn't stuck in a loop
-    res.clearCookie("refreshToken", {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "Strict",
-    });
+    res.clearCookie("refreshToken", clearRefreshTokenCookieOptions());
     return res.status(403).json({ message: "Invalid or expired refresh token." });
   }
 };
 
 // ── Logout ────────────────────────────────────────────────────
 exports.logoutUser = (req, res) => {
-  res.clearCookie("refreshToken", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
-  });
+  res.clearCookie("refreshToken", clearRefreshTokenCookieOptions());
   res.status(200).json({ message: "Logged out successfully." });
 };
 
