@@ -3,6 +3,7 @@ import "./animations.css"
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import PublicRoute from "./routes/PublicRoute";
 import Signup from "./pages/auth/Signup";
 import Signin from "./pages/auth/Signin";
 import Home from "./pages/Home";
@@ -28,8 +29,22 @@ function App() {
       <ScrollToTop />
       <AuthProvider>
         <Routes>
-          <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/signin"
+            element={
+              <PublicRoute>
+                <Signin />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <PublicRoute>
+                <Signup />
+              </PublicRoute>
+            }
+          />
 
           {/* Protected routes */}
           <Route
