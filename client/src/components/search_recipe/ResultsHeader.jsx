@@ -1,4 +1,4 @@
-import { CloseIcon } from "./SearchRecipeIcons";
+import { ChevronDownIcon, CloseIcon } from "../../assets/icons/Icons";
 import { SORT_OPTIONS } from "./searchRecipeConstants";
 
 export default function ResultsHeader({ loading, error, search, recipesCount, total, sort, onSortChange, onBackHome }) {
@@ -36,9 +36,7 @@ export default function ResultsHeader({ loading, error, search, recipesCount, to
               </option>
             ))}
           </select>
-          <svg viewBox="0 0 24 24" className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
+          <ChevronDownIcon className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-500" />
         </div>
         <button onClick={onBackHome} aria-label="Back to home">
           <CloseIcon className="h-6 w-6 text-gray-600" />

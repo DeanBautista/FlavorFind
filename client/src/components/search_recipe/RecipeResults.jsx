@@ -1,6 +1,6 @@
 import RecipeCard from "../home/RecipeCard";
 import { formatRecipeForCard } from "../../utils/recipeSelectors";
-import { SpinnerIcon } from "./SearchRecipeIcons";
+import { SpinnerIcon } from "../../assets/icons/Icons";
 
 export default function RecipeResults({ loading, error, recipes }) {
   if (error) {

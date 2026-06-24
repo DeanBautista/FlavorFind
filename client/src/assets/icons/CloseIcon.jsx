@@ -1,7 +1,7 @@
-export default function CloseIcon() {
+export default function CloseIcon({ className = "w-5 h-5" }) {
   return (
     <svg
-      className="w-5 h-5"
+      className={className}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"

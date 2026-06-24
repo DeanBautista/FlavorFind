@@ -1,4 +1,4 @@
-import { FiltersIcon, SearchIcon } from "./SearchRecipeIcons";
+import { FiltersIcon, SearchIcon } from "../../assets/icons/Icons";
 
 export default function SearchHeader({ search, onSearchChange, searchInputRef, onOpenFilters }) {
   return (

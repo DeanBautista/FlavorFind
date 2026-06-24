@@ -126,4 +126,10 @@
     }
   };
 
+  export const getPublicUser = async (userId) => {
+    const { data } = await apiClient.get(`/users/profile/${userId}`);
+    return data;
+  };
+ 
+
   export default apiClient;

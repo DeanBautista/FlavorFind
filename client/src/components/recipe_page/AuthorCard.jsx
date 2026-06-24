@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import useAuth from "../../context/useAuth";
 import { toggleLikeRecipe, toggleSaveRecipe } from "../../api/recipeApi";
 import {
@@ -70,23 +71,18 @@ export default function AuthorCard({
   };
 
   const handleSaveClick = async () => {
-    if (!user) {
-      // No logged-in user — redirect to login or show a prompt
-      return;
-    }
+    if (!user) return;
     if (saveSubmitting) return;
 
-    // Optimistic update
     const nextSaved = !saved;
     setSaved(nextSaved);
     setSaveSubmitting(true);
 
     try {
       const data = await toggleSaveRecipe(recipeId);
-      // Reconcile with server in case of drift
       setSaved(data.saved);
     } catch (err) {
-      setSaved((prev) => !prev); // roll back
+      setSaved((prev) => !prev);
       console.error("Failed to toggle save:", err);
     } finally {
       setSaveSubmitting(false);
@@ -104,12 +100,14 @@ export default function AuthorCard({
           />
           <div>
             <p className="font-semibold text-gray-900 leading-tight">{username}</p>
-            <a
-              href={authorId ? `/profile/${authorId}` : "#"}
-              className="text-orange-600 text-sm font-medium inline-flex items-center gap-1 hover:underline"
-            >
-              View Profile <span aria-hidden>→</span>
-            </a>
+            {authorId && (
+              <Link
+                to={`/profile/${authorId}`}
+                className="text-orange-600 text-sm font-medium inline-flex items-center gap-1 hover:underline"
+              >
+                View Profile <span aria-hidden>→</span>
+              </Link>
+            )}
           </div>
         </div>
         <div className="flex items-center gap-2">

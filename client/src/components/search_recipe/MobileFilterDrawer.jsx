@@ -1,5 +1,5 @@
 import FilterPanelContent from "./FilterPanelContent";
-import { CloseIcon } from "./SearchRecipeIcons";
+import { CloseIcon } from "../../assets/icons/Icons";
 
 export default function MobileFilterDrawer({ open, onClose, filterPanelProps }) {
   if (!open) return null;

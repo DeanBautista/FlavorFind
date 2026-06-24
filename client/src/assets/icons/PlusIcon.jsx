@@ -1,11 +1,11 @@
-export default function PlusIcon() {
+export default function PlusIcon({ className = "w-4 h-4", strokeWidth = 2 }) {
   return (
     <svg
-      className="w-4 h-4"
+      className={className}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
     >

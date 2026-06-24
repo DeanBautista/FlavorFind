@@ -1,11 +1,25 @@
 import profileTabItems from "./profileTabItems";
 
-export default function ProfileNavigationTabs({ activeTab, onTabChange }) {
+export default function ProfileNavigationTabs({
+  activeTab,
+  onTabChange,
+  visibleTabs,
+  isOwnProfile,
+}) {
+  const visibleItems = visibleTabs
+    ? profileTabItems.filter((tab) => visibleTabs.includes(tab.key))
+    : profileTabItems;
+
   return (
     <div className="flex border-b border-stone-200 px-2 sm:px-6">
-      {profileTabItems.map((tab) => {
+      {visibleItems.map((tab) => {
         const Icon = tab.icon;
         const isActive = activeTab === tab.key;
+
+        // Strip "My " prefix when viewing someone else's profile
+        const label = isOwnProfile
+          ? tab.label
+          : tab.label.replace(/^My /, "");
 
         return (
           <button
@@ -19,7 +33,7 @@ export default function ProfileNavigationTabs({ activeTab, onTabChange }) {
             }`}
           >
             <Icon className="w-4 h-4" />
-            <span>{tab.label}</span>
+            <span>{label}</span>
           </button>
         );
       })}

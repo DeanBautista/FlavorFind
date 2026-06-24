@@ -19,6 +19,7 @@ function TabState({ loading, error, empty, loadingText, emptyText, children }) {
 
 export default function ProfileTabContent({
   activeTab,
+  isOwnProfile,
   recipes,
   loading,
   error,
@@ -40,9 +41,13 @@ export default function ProfileTabContent({
           error={error}
           empty={recipes.length === 0}
           loadingText="Loading recipes..."
-          emptyText="You haven't added any recipes yet."
+          emptyText={
+            isOwnProfile
+              ? "You haven't added any recipes yet."
+              : "This user hasn't added any recipes yet."
+          }
         >
-          <ProfileRecipeGrid recipes={recipes} isOwner />
+          <ProfileRecipeGrid recipes={recipes} isOwner={isOwnProfile} />
         </TabState>
       )}
 
@@ -52,7 +57,11 @@ export default function ProfileTabContent({
           error={likesError}
           empty={likedRecipes.length === 0}
           loadingText="Loading liked recipes..."
-          emptyText="You haven't liked any recipes yet."
+          emptyText={
+            isOwnProfile
+              ? "You haven't liked any recipes yet."
+              : "This user hasn't liked any recipes yet."
+          }
         >
           <ProfileRecipeGrid recipes={likedRecipes} />
         </TabState>
@@ -64,7 +73,11 @@ export default function ProfileTabContent({
           error={savedError}
           empty={savedRecipes.length === 0}
           loadingText="Loading saved recipes..."
-          emptyText="You haven't saved any recipes yet."
+          emptyText={
+            isOwnProfile
+              ? "You haven't saved any recipes yet."
+              : "This user hasn't saved any recipes yet."
+          }
         >
           <ProfileRecipeGrid recipes={savedRecipes} />
         </TabState>

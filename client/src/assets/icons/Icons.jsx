@@ -23,6 +23,11 @@ import BookmarkIcon from "./BookmarkIcon";
 import HeartIcon from "./HeartIcon";
 import TrendingUpIcon from "./TrendingUpIcon";
 import ClockIcon from "./ClockIcon";
+import EditIcon from "./EditIcon";
+import FiltersIcon from "./FiltersIcon";
+import ChevronDownIcon from "./ChevronDownIcon";
+import SpinnerIcon from "./SpinnerIcon";
+import UserPlusIcon from "./UserPlusIcon";
 
 export {
     CloseIcon, 
@@ -49,5 +54,10 @@ export {
     BookmarkIcon,
     HeartIcon,
     TrendingUpIcon,
-    ClockIcon
+    ClockIcon,
+    EditIcon,
+    FiltersIcon,
+    ChevronDownIcon,
+    SpinnerIcon,
+    UserPlusIcon
 }

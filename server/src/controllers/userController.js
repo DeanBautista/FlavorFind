@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -176,5 +177,28 @@ exports.getMe = async (req, res) => {
   } catch (err) {
     console.error({ getMeError: err.message });
     res.status(500).json({ message: "Something went wrong. Please try again." });
+  }
+};
+
+exports.getPublicUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+ 
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid user id." });
+    }
+ 
+    const user = await User.findById(id)
+      .select("username avatar bio createdAt")
+      .lean();
+ 
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+ 
+    res.status(200).json(user);
+  } catch (err) {
+    console.error("Error fetching public user:", err);
+    res.status(500).json({ message: "Failed to fetch user." });
   }
 };

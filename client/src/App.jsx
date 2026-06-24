@@ -77,6 +77,15 @@ function App() {
             }
           />
 
+          <Route 
+            path="/profile/:userId" 
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+
           <Route
             path="/recipe/:id/edit"
             element={

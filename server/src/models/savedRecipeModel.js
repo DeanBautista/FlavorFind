@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 const savedRecipeSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: "Users",
     required: true,
   },
   recipe: {
