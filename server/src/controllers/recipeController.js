@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Recipe = require('../models/recipeModel');
 const User = require('../models/userModel')
+const Review = require('../models/reviewModel');
 const SavedRecipe = require('../models/savedRecipeModel');
 
 // POST /api/recipes
@@ -451,6 +452,41 @@ const updateRecipe = async (req, res) => {
   }
 };
 
-module.exports = { updateRecipe };
+// DELETE /api/recipes/:id
+// DELETE /api/recipes/:id
+const deleteRecipe = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-module.exports = { createRecipe, getAllRecipes, getRecipeById, toggleLike, toggleSaveRecipe, getSavedRecipes, updateRecipe };
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: 'Invalid recipe id.' });
+    }
+
+    const recipe = await Recipe.findById(id);
+
+    if (!recipe) {
+      return res.status(404).json({ message: 'Recipe not found.' });
+    }
+
+    // Only the recipe's author can delete it
+    if (recipe.author.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "You don't have permission to delete this recipe." });
+    }
+
+    await recipe.deleteOne();
+
+    // Clean up everything that references this recipe so nothing orphans:
+    // saved-recipe bookmarks and reviews left by other users.
+    await Promise.all([
+      SavedRecipe.deleteMany({ recipe: id }),
+      Review.deleteMany({ recipe: id }),
+    ]);
+
+    res.status(200).json({ message: 'Recipe deleted.', id });
+  } catch (error) {
+    console.error('Error deleting recipe:', error);
+    res.status(500).json({ message: 'Failed to delete recipe.', error: error.message });
+  }
+};
+
+module.exports = { createRecipe, getAllRecipes, getRecipeById, toggleLike, toggleSaveRecipe, getSavedRecipes, updateRecipe, deleteRecipe };

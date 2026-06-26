@@ -101,3 +101,13 @@ export const getSavedRecipes = async (params = {}) => {
     throw errorData;
   }
 };
+
+export const deleteRecipe = async (id) => {
+  try {
+    const response = await apiClient.delete(`/recipes/${id}`);
+    return response.data; // { message, id }
+  } catch (error) {
+    const errorData = error.response?.data || { message: error.message };
+    throw errorData;
+  }
+};

@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ClockIcon, EditIcon, HeartIcon } from "../../assets/icons/Icons";
+import { ClockIcon, EditIcon, HeartIcon, TrashIcon } from "../../assets/icons/Icons";
 
-export default function RecipeCard({ recipe, isOwner = false }) {
+export default function RecipeCard({ recipe, isOwner = false, onDelete }) {
   const navigate = useNavigate();
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const handleClick = () => {
     if (!recipe.id) {
@@ -21,6 +23,24 @@ export default function RecipeCard({ recipe, isOwner = false }) {
     navigate(`/recipe/${recipe.id}/edit`);
   };
 
+  const handleDeleteClick = async (e) => {
+    e.stopPropagation();
+    if (!recipe.id) {
+      console.warn("RecipeCard: missing recipe id, cannot delete.", recipe);
+      return;
+    }
+    if (!onDelete) return;
+    if (!window.confirm(`Delete "${recipe.title}"? This can't be undone.`)) {
+      return;
+    }
+    setIsDeleting(true);
+    try {
+      await onDelete(recipe.id);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   return (
     <div
       onClick={handleClick}
@@ -37,13 +57,23 @@ export default function RecipeCard({ recipe, isOwner = false }) {
           }}
         />
         {isOwner && (
-          <button
-            onClick={handleEditClick}
-            aria-label="Edit recipe"
-            className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/90 hover:bg-white text-gray-600 hover:text-orange-500 flex items-center justify-center shadow-sm transition-colors duration-150"
-          >
-            <EditIcon className="w-4 h-4" />
-          </button>
+          <div className="absolute top-2 right-2 flex items-center gap-1.5">
+            <button
+              onClick={handleEditClick}
+              aria-label="Edit recipe"
+              className="w-8 h-8 rounded-full bg-white/90 hover:bg-white text-gray-600 hover:text-orange-500 flex items-center justify-center shadow-sm transition-colors duration-150"
+            >
+              <EditIcon className="w-4 h-4" />
+            </button>
+            <button
+              onClick={handleDeleteClick}
+              disabled={isDeleting}
+              aria-label="Delete recipe"
+              className="w-8 h-8 rounded-full bg-white/90 hover:bg-white text-gray-600 hover:text-red-500 flex items-center justify-center shadow-sm transition-colors duration-150 disabled:opacity-50"
+            >
+              <TrashIcon className="w-4 h-4" />
+            </button>
+          </div>
         )}
       </div>
       <div className="p-4 flex flex-col gap-2 flex-1">

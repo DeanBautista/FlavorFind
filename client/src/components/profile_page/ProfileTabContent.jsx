@@ -32,6 +32,7 @@ export default function ProfileTabContent({
   reviews,
   reviewsLoading,
   reviewsError,
+  onDeleteRecipe,
 }) {
   return (
     <div className="p-4 sm:p-6">
@@ -47,7 +48,7 @@ export default function ProfileTabContent({
               : "This user hasn't added any recipes yet."
           }
         >
-          <ProfileRecipeGrid recipes={recipes} isOwner={isOwnProfile} />
+          <ProfileRecipeGrid recipes={recipes} isOwner={isOwnProfile} onDelete={onDeleteRecipe} />
         </TabState>
       )}
 

@@ -28,6 +28,7 @@ import FiltersIcon from "./FiltersIcon";
 import ChevronDownIcon from "./ChevronDownIcon";
 import SpinnerIcon from "./SpinnerIcon";
 import UserPlusIcon from "./UserPlusIcon";
+import TrashIcon from "./TrashIcon";
 
 export {
     CloseIcon, 
@@ -59,5 +60,6 @@ export {
     FiltersIcon,
     ChevronDownIcon,
     SpinnerIcon,
-    UserPlusIcon
+    UserPlusIcon,
+    TrashIcon
 }

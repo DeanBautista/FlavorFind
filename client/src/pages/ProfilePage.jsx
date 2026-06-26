@@ -8,7 +8,7 @@ import ProfileStats from "../components/profile_page/ProfileStats";
 import ProfileTabContent from "../components/profile_page/ProfileTabContent";
 import { AuthContext } from "../context/AuthContext";
 import { getUserRecipes, getPublicUser } from "../api/userApi";
-import { getRecipes, getSavedRecipes } from "../api/recipeApi";
+import { getRecipes, getSavedRecipes, deleteRecipe  } from "../api/recipeApi";
 import { getReviews } from "../api/reviewApi";
 
 export default function ProfilePage() {
@@ -182,6 +182,15 @@ export default function ProfilePage() {
     setUser((prev) => ({ ...prev, ...updatedUser }));
   };
 
+  const handleDeleteRecipe = async (recipeId) => {
+    try {
+      await deleteRecipe(recipeId);
+      setRecipes((prev) => prev.filter((r) => r._id.toString() !== recipeId.toString()));
+    } catch (err) {
+      setError(err.message || "Couldn't delete recipe. Please try again.");
+    }
+  };
+
   // ── Loading / error states ────────────────────────────────────────────────
   if (!isOwnProfile && publicUserLoading) {
     return (
@@ -275,6 +284,7 @@ export default function ProfilePage() {
               reviews={reviews}
               reviewsLoading={reviewsLoading}
               reviewsError={reviewsError}
+              onDeleteRecipe={isOwnProfile ? handleDeleteRecipe : undefined}
             />
           </div>
         </div>

@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createRecipe, getAllRecipes, getRecipeById, updateRecipe, toggleLike, toggleSaveRecipe, getSavedRecipes  } = require('../controllers/recipeController');
+const { createRecipe, getAllRecipes, getRecipeById, updateRecipe, deleteRecipe, toggleLike, toggleSaveRecipe, getSavedRecipes  } = require('../controllers/recipeController');
 const { protect } = require('../middleware/authMiddleware'); // adjust path if you already have your own
 
 // GET /api/recipes — public, used by the homepage to build Featured/Recently Added
@@ -21,5 +21,7 @@ router.post('/:id/like', protect, toggleLike);
 
 // recipeRoutes.js
 router.post('/:id/save', protect, toggleSaveRecipe);
+
+router.delete('/:id', protect, deleteRecipe);
 
 module.exports = router;
