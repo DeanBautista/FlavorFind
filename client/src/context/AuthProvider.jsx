@@ -48,18 +48,19 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await logoutUser();
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("user");
-    setUser(null);
+    try {
+      await logoutUser();
+    } catch (err) {
+      console.error("Logout request failed:", err);
+    } finally {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
+      setUser(null);
+    }
   };
 
-  // ← Don't render children until auth check is done
-  // prevents flickering between logged-in and logged-out UI
-  if (!authReady) return null;
-
   return (
-    <AuthContext.Provider value={{ user, setUser, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout, authReady, loading: !authReady }}>
       {children}
     </AuthContext.Provider>
   );
