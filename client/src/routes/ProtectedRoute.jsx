@@ -1,10 +1,11 @@
 import { Navigate } from "react-router-dom";
 import useAuth from "../context/useAuth";
+import PageLoader from "../components/PageLoader";
 
 export default function ProtectedRoute({ children }) {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
 
-  console.log('user from Protected Route: ', user)
+  if (loading) return <PageLoader />; // or a spinner component
 
   if (!user) return <Navigate to="/signin" replace />;
 
