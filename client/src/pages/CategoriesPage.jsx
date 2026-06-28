@@ -5,6 +5,7 @@ import Header from "../components/header/Header";
 import RecipeCard from "../components/home/RecipeCard";
 import { getRecipes } from "../api/recipeApi";
 import { formatRecipeForCard } from "../utils/recipeSelectors";
+import Footer from "../components/Footer";
 
 const categories = [
   { label: "All",       icon: "📋" },
@@ -193,6 +194,7 @@ export default function CategoriesPage() {
 
         </main>
       </div>
+      <Footer />
     </>
   );
 }

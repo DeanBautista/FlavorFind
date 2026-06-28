@@ -33,7 +33,7 @@
     from {
       opacity: 0;
       transform: translateY(40px);
-      filter: blur(8px);
+      filter: blur(2px);
     }
 
     to {

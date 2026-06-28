@@ -10,6 +10,7 @@ import Nutrition from "../components/recipe_page/Nutrition";
 import QuickInfoBar from "../components/recipe_page/QuickInfoBar";
 import ReviewsSection from "../components/recipe_page/ReviewSection";
 import Header from "../components/header/Header";
+import PageLoader from "../components/PageLoader";
 
 export default function RecipePage() {
   const { id } = useParams(); // expects route like /recipes/:id
@@ -50,9 +51,7 @@ export default function RecipePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <p className="text-gray-500">Loading recipe...</p>
-      </div>
+        <PageLoader />
     );
   }
 

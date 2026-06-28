@@ -8,6 +8,7 @@ import {
   pickRecentRecipes,
   formatRecipeForCard,
 } from "../utils/recipeSelectors";
+import Footer from "../components/Footer";
 
 const categories = [
   { label: "All", icon: "📋" },
@@ -235,7 +236,7 @@ export default function Home() {
         </div>
 
         {/* ── Main content ── */}
-        <main className="animate-fade-in-up mx-auto px-7 pt-3 pb-8 w-full" style={{ maxWidth: "1280px" }}>
+        <main className="mx-auto px-7 pt-3 pb-8 w-full animate-fade-in-up" style={{ maxWidth: "1280px" }}>
 
           {/* ── Category pills ── */}
           <div className="w-full border-b border-gray-100 bg-[#faf7f2] sticky top-0 z-10 mb-7">
@@ -342,6 +343,7 @@ export default function Home() {
 
         </main>
       </div>
+      <Footer />
     </>
   );
 }

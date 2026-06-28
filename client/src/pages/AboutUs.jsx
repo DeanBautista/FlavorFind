@@ -1,14 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import Header from "../components/header/Header";
+import Footer from "../components/Footer";
 
 // ─── Data ──────────────────────────────────────────────────────────────────
-
-const stats = [
-  { value: "12,000+", label: "Recipes shared" },
-  { value: "4,800+", label: "Home cooks" },
-  { value: "98",     label: "Countries represented" },
-  { value: "4.8★",   label: "Average recipe rating" },
-];
 
 const values = [
   {
@@ -31,39 +25,14 @@ const values = [
   },
 ];
 
-const team = [
-  {
-    initials: "AV",
-    name: "Ana Vega",
-    role: "Co-founder & Head of Community",
-    bio: "Former restaurant chef turned product builder. Ana ensures every feature we ship makes the cooking experience better, not just the metrics.",
-  },
-  {
-    initials: "JK",
-    name: "Jonas Kim",
-    role: "Co-founder & Engineering",
-    bio: "Built his first recipe app to solve a real problem: losing his grandmother's handwritten cards. That itch never went away.",
-  },
-  {
-    initials: "PR",
-    name: "Priya Rao",
-    role: "Design & Brand",
-    bio: "Believes great design should feel inevitable in hindsight. Responsible for everything that makes flavorfind feel like flavorfind.",
-  },
-];
+const developer = {
+  initials: "DB",
+  name: "Dean Paolo Bautista",
+  role: "Founder & Developer",
+  bio: "Built flavorfind to solve a real problem: losing favorite recipes to scattered notes and screenshots. Designed, built, and shipped every part of it solo.",
+};
 
 // ─── Sub-components ────────────────────────────────────────────────────────
-
-function StatCard({ value, label }) {
-  return (
-    <div className="bg-white border border-gray-100 rounded-2xl px-6 py-5 flex flex-col items-center text-center">
-      <span className="text-3xl font-bold text-orange-500 leading-none mb-1">
-        {value}
-      </span>
-      <span className="text-sm text-gray-500">{label}</span>
-    </div>
-  );
-}
 
 function ValueCard({ icon, title, body }) {
   return (
@@ -75,19 +44,17 @@ function ValueCard({ icon, title, body }) {
   );
 }
 
-function TeamCard({ initials, name, role, bio }) {
+function DeveloperCard({ initials, name, role, bio }) {
   return (
-    <div className="bg-white border border-gray-100 rounded-2xl p-6 flex flex-col gap-4">
-      <div className="flex items-center gap-3">
-        <div className="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-sm flex-shrink-0">
-          {initials}
-        </div>
-        <div>
-          <p className="text-sm font-bold text-gray-900">{name}</p>
-          <p className="text-xs text-orange-500 font-medium">{role}</p>
-        </div>
+    <div className="bg-white border border-gray-100 rounded-2xl p-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6 max-w-xl mx-auto">
+      <div className="w-14 h-14 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-base flex-shrink-0">
+        {initials}
       </div>
-      <p className="text-sm text-gray-500 leading-relaxed">{bio}</p>
+      <div>
+        <p className="text-sm font-bold text-gray-900">{name}</p>
+        <p className="text-xs text-orange-500 font-medium mb-2">{role}</p>
+        <p className="text-sm text-gray-500 leading-relaxed">{bio}</p>
+      </div>
     </div>
   );
 }
@@ -134,15 +101,6 @@ export default function AboutUs() {
           style={{ maxWidth: "1280px" }}
         >
 
-          {/* ── Stats ── */}
-          <section className="mb-14">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {stats.map((s) => (
-                <StatCard key={s.label} {...s} />
-              ))}
-            </div>
-          </section>
-
           {/* ── Mission ── */}
           <section className="mb-14">
             <div className="bg-white border border-gray-100 rounded-2xl p-8 lg:p-10 flex flex-col lg:flex-row gap-8 items-start">
@@ -160,10 +118,10 @@ export default function AboutUs() {
                   it makes it better.
                 </p>
                 <p className="text-sm text-gray-500 leading-relaxed">
-                  Today, tens of thousands of home cooks share, save, and improve
-                  recipes together on flavorfind. Every rating, review, and tweak
-                  makes the collection smarter. That's the product we set out to
-                  build, and we're just getting started.
+                  Today, home cooks share, save, and improve recipes together on
+                  flavorfind. Every rating, review, and tweak makes the collection
+                  smarter. That's the product we set out to build, and we're just
+                  getting started.
                 </p>
               </div>
               <div className="flex-shrink-0 lg:w-56">
@@ -191,22 +149,17 @@ export default function AboutUs() {
             </div>
           </section>
 
-          {/* ── Team ── */}
+          {/* ── Developer ── */}
           <section className="mb-14">
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-center mb-6">
               <h2 className="text-xl font-bold text-gray-900 flex items-center gap-2">
                 <svg className="w-5 h-5 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a4 4 0 00-5-3.87M9 20H4v-2a4 4 0 015-3.87m6-4.13a4 4 0 11-8 0 4 4 0 018 0zm6 0a4 4 0 11-2 0" />
                 </svg>
-                The team
+                Made by
               </h2>
-              <span className="text-sm text-gray-400 hidden sm:block">Small, opinionated, food-obsessed</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {team.map((t) => (
-                <TeamCard key={t.name} {...t} />
-              ))}
-            </div>
+            <DeveloperCard {...developer} />
           </section>
 
           {/* ── CTA ── */}
@@ -239,6 +192,7 @@ export default function AboutUs() {
 
         </main>
       </div>
+      <Footer />
     </>
   );
 }
