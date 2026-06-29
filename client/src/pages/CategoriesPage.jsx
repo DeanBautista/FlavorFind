@@ -6,6 +6,7 @@ import RecipeCard from "../components/home/RecipeCard";
 import { getRecipes } from "../api/recipeApi";
 import { formatRecipeForCard } from "../utils/recipeSelectors";
 import Footer from "../components/Footer";
+import SkeletonCard from "../components/SkeletonCard";
 
 const categories = [
   { label: "All",       icon: "📋" },
@@ -27,19 +28,6 @@ function shuffleArray(arr) {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
-}
-
-function SkeletonCard() {
-  return (
-    <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden animate-pulse">
-      <div className="w-full bg-gray-100" style={{ paddingBottom: "62%" }} />
-      <div className="p-4 flex flex-col gap-3">
-        <div className="h-3 bg-gray-100 rounded w-1/3" />
-        <div className="h-4 bg-gray-100 rounded w-3/4" />
-        <div className="h-3 bg-gray-100 rounded w-1/2" />
-      </div>
-    </div>
-  );
 }
 
 function EmptyState({ category }) {

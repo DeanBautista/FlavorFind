@@ -29,7 +29,7 @@ export default function RecipeResults({ loading, error, recipes }) {
   }
 
   return (
-    <div className="grid grid-cols-3 max-[1100px]:grid-cols-2 max-[630px]:grid-cols-1 gap-6">
+    <div className="animate-fade-in-up grid grid-cols-3 max-[1100px]:grid-cols-2 max-[630px]:grid-cols-1 gap-6">
       {recipes.map((recipe) => (
         <RecipeCard key={recipe._id} recipe={formatRecipeForCard(recipe)} />
       ))}
