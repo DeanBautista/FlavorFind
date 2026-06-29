@@ -12,6 +12,7 @@ import {
   RESULTS_PER_PAGE,
 } from "../components/search_recipe/searchRecipeConstants";
 import { useDebounce } from "../hooks/useDebounce";
+import Footer from "../components/Footer";
 
 export default function SearchRecipe({ currentUserId }) {
   const navigate = useNavigate();
@@ -209,6 +210,8 @@ export default function SearchRecipe({ currentUserId }) {
         onClose={() => setFiltersOpen(false)}
         filterPanelProps={filterPanelProps}
       />
+
+      <Footer />
     </div>
   );
 }

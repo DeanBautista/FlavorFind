@@ -10,6 +10,7 @@ import { AuthContext } from "../context/AuthContext";
 import { getUserRecipes, getPublicUser } from "../api/userApi";
 import { getRecipes, getSavedRecipes, deleteRecipe  } from "../api/recipeApi";
 import { getReviews } from "../api/reviewApi";
+import Footer from "../components/Footer";
 
 export default function ProfilePage() {
   const { user, setUser } = useContext(AuthContext);
@@ -289,6 +290,7 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }
